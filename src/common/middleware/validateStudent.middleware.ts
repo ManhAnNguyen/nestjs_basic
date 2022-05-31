@@ -5,7 +5,6 @@ import { students } from 'src/db';
 @Injectable()
 export class ValidateStudentMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    console.log('Middleware');
     const studentId = req.params.studentId;
     const exsistingStudent = students.some(
       (student) => student.id === studentId,
