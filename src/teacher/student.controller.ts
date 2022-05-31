@@ -3,23 +3,24 @@ import {
   FindStudentResponseDto,
   StudentResponseDto,
 } from 'src/student/dto/student.dto';
+import { StudentService } from 'src/student/student.service';
 
 @Controller('teachers/:teacherId/students')
 export class StudentTeacherController {
+  constructor(private readonly studentService: StudentService) {}
+
   @Get()
-  getStudentByTeacherId(
+  getStudentSByTeacherId(
     @Param('teacherId') teacherId: string,
-  ): FindStudentResponseDto {
-    return `Get students by teachder id ${teacherId}`;
+  ): FindStudentResponseDto[] {
+    return this.studentService.getStudentByTeacherId(teacherId);
   }
+
   @Put('/:studentId')
-  updateStudentByTeacherId(
+  updateStudentTeacher(
     @Param('teacherId') teacherId: string,
     @Param('studentId') studentId: string,
-    @Body() body,
   ): StudentResponseDto {
-    return `update student with id ${studentId} by teacher id ${teacherId} with data of ${JSON.stringify(
-      body,
-    )}`;
+    return this.studentService.updateStudentTeacher(teacherId, studentId);
   }
 }
